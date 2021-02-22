@@ -49,7 +49,7 @@ heat.tempSensePins = {<%- util.makePlainArrayString(tempSensePins) -%>}; //Max o
 8266wifi.espDataReadyPin = <%- board.espDataReadyPin -%>;
 8266wifi.lpcTfrReadyPin = <%- board.lpcTfrReadyPin -%>;
 8266wifi.espResetPin = <%- board.espResetPin -%>;
-	<% } -%>
+<% } -%>
 <% } -%>
 <%	if (board.name == 'fly_F407ZG' && board.hasESP && template.network.enabled) { -%>
 8266wifi.csPin = <%- board.wifi8266CSPin -%>;	
