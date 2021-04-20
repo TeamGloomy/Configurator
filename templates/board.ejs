@@ -70,7 +70,7 @@ serial.aux.rxTxPins = {NoPin, NoPin};
 <% if (board.stepperDriverSmart) { -%>
 	<% let numSmartDrivers = 0; -%>
 	<% for (let i = 0; i < template.drives.length; ++i) { -%>
-		<% if (template.drives[i].stepperDriver === 'TMC2208' || template.drives[i].stepperDriver === 'TMC2209' || template.drives[i].stepperDriver === 'TMC2225' || template.drives[i].stepperDriver === 'TMC2226') { -%>
+		<% if (template.drives[i].stepperDriver === 'TMC2208' || template.drives[i].stepperDriver === 'TMC2209' || template.drives[i].stepperDriver === 'TMC2225' || template.drives[i].stepperDriver === 'TMC2226' || template.drives[i].stepperDriver === 'TMC5160') { -%>
 			<% ++numSmartDrivers; -%>
 		<% } else { break; } -%>
 	<% } -%>
