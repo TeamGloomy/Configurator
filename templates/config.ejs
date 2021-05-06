@@ -63,7 +63,7 @@ M552 S0 ; disable network
 			//has built in drivers, use presets
 			stepperDriver = board.stepperDriver;
 			stepperDriverTimings = board.stepperDriverTimings;
-		} else if (drive.stepperDriver == "TMC2208" || drive.stepperDriver == "TMC2209" || drive.stepperDriver == "TMC2225" || drive.stepperDriver == "TMC2226") {
+		} else if (drive.stepperDriver == "TMC2208" || drive.stepperDriver == "TMC2209" || drive.stepperDriver == "TMC2225" || drive.stepperDriver == "TMC2226" ) {
 			//has built in drivers, use presets
 			stepperDriver = board.stepperDriver;
 			stepperDriverTimings = board.stepperDriverTimings;
@@ -72,7 +72,7 @@ M552 S0 ; disable network
 			stepperDriverTimings = drive.stepperDriverTimings;
 		}
 -%>
-M569 P<%- driver %> S<%- drive.direction %> <%- (stepperDriver != "")?"T"+stepperDriverTimings:"" %> ; physical drive <%- driver %> goes <%- (drive.direction === 0) ? 'backwards' : 'forwards' %> using <%- (stepperDriver != "")?stepperDriver:"default" %> driver timings
+M569 P<%- driver %> S<%- drive.direction %> <%- (stepperDriver != "" && board.stepperDriver != "TMC2209")?"T"+stepperDriverTimings:"" %> ; physical drive <%- driver %> goes <%- (drive.direction === 0) ? 'backwards' : 'forwards' %> using <%- (stepperDriver != "")?stepperDriver:"default" %> driver timings
 <%	}); -%>
 M584 <%- util.makeDriverString() %> ; set drive mapping
 <%	if (board.microstepping) {
