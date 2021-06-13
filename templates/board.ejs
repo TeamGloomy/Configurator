@@ -77,6 +77,22 @@ serial.aux.rxTxPins = {NoPin, NoPin};
 //TMC Smart Drivers
 stepper.numSmartDrivers = <%- numSmartDrivers -%>;
 <% } -%>
+<% if (board.stepperDriverSmart && board.type === 'STM32F4') { -%>
+	<% let num5160Drivers = 0; -%>
+	<% for (let i = 0; i < template.drives.length; ++i) { -%>
+		<% if (template.drives[i].stepperDriver === 'TMC5160') { -%>
+			<% ++num5160Drivers; -%>
+		<% }  else { } -%>
+	<% } -%>
+//TMC 5160 Drivers
+stepper.num5160Drivers = <%- num5160Drivers -%>;
+<% if (board.stepperDriver5160SPI !== 'N/A') { -%>
+stepper.spiChannel = <%- board.stepperDriver5160SPI -%>;
+<% } -%>
+<% if (board.stepperDriver5160Pins !== 'N/A') { -%>
+SPI<%- board.stepperDriver5160SPI -%>.pins = <%- board.stepperDriver5160Pins -%>;
+<% } -%>
+<% } -%>
 <% if (!template.standalone) { -%>
 //SBC Settings
 sbc.TfrReadyPin = <%- board.espResetPin -%>;
@@ -88,4 +104,144 @@ sbc.csPin = F.11
 
 // External Display settings
 serial.aux.rxTxPins = {<%- board.auxRX %>, <%- board.auxTX %>};
+<% } -%>
+<% let diagCount = 0; -%>
+<% let diag0 = 'NoPin'; -%>
+<% let diag1 = 'NoPin'; -%>
+<% let diag2 = 'NoPin'; -%>
+<% let diag3 = 'NoPin'; -%>
+<% let diag4 = 'NoPin'; -%>
+<% let diag5 = 'NoPin'; -%>
+<% let diag6 = 'NoPin'; -%>
+<% let diag7 = 'NoPin'; -%>
+<% let diag8 = 'NoPin'; -%>
+<% let diag9 = 'NoPin'; -%>
+<% let diag10 = 'NoPin'; -%>
+<%if (template.drives[0].endstop_type === 4 && template.drives[0].stepperDriver !== 'TMC5160') { -%>
+	<% diag0 = board.drives[0].diag; -%>
+	<% ++diagCount; -%>
+<% } -%>
+<%if (board.name === 'biquskrpro_1.1' && template.drives[0].stepperDriver == 'TMC5160') { -%>
+	<% diag0 = board.stepperDriver5160CS[0].diag; -%>
+	<% ++diagCount; -%>
+<% } -%>
+<%if (template.drives[1].endstop_type === 4 && template.drives[1].stepperDriver !== 'TMC5160') { -%>
+	<% diag1 = board.drives[1].diag; -%>
+	<% ++diagCount; -%>
+<% } -%>
+<%if (board.name === 'biquskrpro_1.1' && template.drives[1].stepperDriver == 'TMC5160') { -%>
+	<% diag1 = board.stepperDriver5160CS[1].diag; -%>
+	<% ++diagCount; -%>
+<% } -%>
+<%if (template.drives[2]?.driver ) { -%>
+	<%if (template.drives[2].endstop_type === 4 && template.drives[2].stepperDriver !== 'TMC5160') { -%>
+		<% diag2 = board.drives[2].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+	<%if (board.name === 'biquskrpro_1.1' && template.drives[2].stepperDriver == 'TMC5160') { -%>
+		<% diag2 = board.stepperDriver5160CS[2].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+<% } -%>
+<%if (template.drives[3]?.driver ) { -%>
+	<%if (template.drives[3].endstop_type === 4 && template.drives[3].stepperDriver !== 'TMC5160') { -%>
+		<% diag3 = board.drives[3].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+	<%if (board.name === 'biquskrpro_1.1' && template.drives[3].stepperDriver == 'TMC5160') { -%>
+		<% diag3 = board.stepperDriver5160CS[3].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+<% } -%>
+<%if (template.drives[4]?.driver ) { -%>
+	<%if (template.drives[4].endstop_type === 4 && template.drives[4].stepperDriver !== 'TMC5160') { -%>
+		<% diag4 = board.drives[4].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+	<%if (board.name === 'biquskrpro_1.1' && template.drives[4].stepperDriver == 'TMC5160') { -%>
+		<% diag4 = board.stepperDriver5160CS[4].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+<% } -%>
+<%if (template.drives[5]?.driver ) { -%>
+	<%if (template.drives[5].endstop_type === 4 && template.drives[5].stepperDriver !== 'TMC5160') { -%>
+		<% diag5 = board.drives[5].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+	<%if (board.name === 'biquskrpro_1.1' && template.drives[5].stepperDriver == 'TMC5160') { -%>
+		<% diag5 = board.stepperDriver5160CS[5].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+<% } -%>
+<%if (template.drives[6]?.driver ) { -%>
+	<%if (template.drives[6].endstop_type === 4 && template.drives[6].stepperDriver !== 'TMC5160') { -%>
+		<% diag6 = board.drives[6].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+	<%if (board.name === 'biquskrpro_1.1' && template.drives[6].stepperDriver == 'TMC5160') { -%>
+		<% diag6 = board.stepperDriver5160CS[6].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+<% } -%>
+<%if (template.drives[7]?.driver ) { -%>
+	<%if (template.drives[7].endstop_type === 4 && template.drives[7].stepperDriver !== 'TMC5160') { -%>
+		<% diag7 = board.drives[7].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+	<%if (board.name === 'biquskrpro_1.1' && template.drives[7].stepperDriver == 'TMC5160') { -%>
+		<% diag7 = board.stepperDriver5160CS[7].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+<% } -%>
+<%if (template.drives[8]?.driver ) { -%>
+	<%if (template.drives[8].endstop_type === 4 && template.drives[8].stepperDriver !== 'TMC5160') { -%>
+		<% diag8 = board.drives[8].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+	<%if (board.name === 'biquskrpro_1.1' && template.drives[8].stepperDriver == 'TMC5160') { -%>
+		<% diag8 = board.stepperDriver5160CS[8].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+<% } -%>
+<%if (template.drives[9]?.driver ) { -%>
+	<%if (template.drives[9].endstop_type === 4 && template.drives[9].stepperDriver !== 'TMC5160') { -%>
+		<% diag9 = board.drives[9].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+	<%if (board.name === 'biquskrpro_1.1' && template.drives[9].stepperDriver == 'TMC5160') { -%>
+		<% diag9 = board.stepperDriver5160CS[9].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+<% } -%>
+<%if (template.drives[10]?.driver ) { -%>
+	<%if (template.drives[10].endstop_type === 4 && template.drives[10].stepperDriver !== 'TMC5160') { -%>
+		<% diag10 = board.drives[10].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+	<%if (board.name === 'biquskrpro_1.1' && template.drives[10].stepperDriver == 'TMC5160') { -%>
+		<% diag10 = board.stepperDriver5160CS[10].diag; -%>
+		<% ++diagCount; -%>
+	<% } -%>
+<% } -%>
+<%if (board.type === 'LPC' && diagCount !== 0) { -%>
+// Diag Pins
+stepper.TmcDiagPins = { <%- diag0 -%> , <%- diag1 -%>, <%- diag2 -%>, <%- diag3 -%>, <%- diag4 -%>};
+<% } -%>
+<%if (board.type === 'STM32F4' && diagCount !== 0) { -%>
+// Diag Pins
+stepper.TmcDiagPins = { <%- diag0 -%> , <%- diag1 -%>, <%- diag2 -%>, <%- diag3 -%>, <%- diag4 -%>, <%- diag5 -%>, <%- diag6 -%>, <%- diag7 -%>, <%- diag8 -%>, <%- diag9 -%>, <%- diag10 -%>};
+<% } -%>
+<%if (board.name === 'biquskrpro_1.1' && template.expansion_boards[0] === 'BTT EXP-MOT') { -%>
+// BTT EXP-MOT pins
+stepper.enablePins = {F.2, D.7, C.0, C.3, A.3, F.0, D.11, G.7}
+stepper.stepPins = {E.9, E.11, E.13, E.14, D.15, D.13, G.3, G.2}
+stepper.directionPins = {F.1, E.8, C.2, A.0, E.7, G.9, D.10, G.6}
+stepper.TmcUartPins = {C.13, E.3, E.1, D.4, D.1, D.6, F.11, G.10}
+<% } -%>
+<%if (board.name === 'biquskr_2' && template.expansion_boards[0] === 'BTT EXP-MOT') { -%>
+// BTT EXP-MOT pins
+stepper.enablePins = {E.3, D.6, D.1, C.7, D.13, C.4, E.13, E.12}
+stepper.stepPins = {E.2, D.5, A.15, D.15, D.11, A.7, E.7, A.6}
+stepper.directionPins = {E.1, D.4, A.8, D.14, D.10, B.2, A.4, A.5}
+stepper.TmcUartPins = {E.0, D.3, D.0, C.6, D.12, E.11, B.9, B.0}
 <% } -%>
