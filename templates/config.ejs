@@ -28,7 +28,7 @@ M918 P<%- template.display.type %> E<%- template.display.encoder_steps + ((templ
 -%>
 
 ; Network
-<%		if (template.network.enabled) { -%>
+<%		if (template.network.enabled || template.network.enabled32) { -%>
 <%			if (template.network.password !== '') { -%>
 M551 P"<%- template.network.password %>" ; set password
 <%			}
