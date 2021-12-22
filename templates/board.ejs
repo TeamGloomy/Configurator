@@ -40,7 +40,7 @@ lcd.panelButtonPin = <%- board.lpc.lcd.panelButtonPin -%>; //Extra button on RRD
 		tempSensePins.push(template.heaters[i].sensor_pin);	
 	}
 -%>
-heat.tempSensePins = {<%- util.makePlainArrayString(tempSensePins) -%>}; //Max of 3 entries
+heat.tempSensePins = {<%- tempSensePins.toString() -%>}; //Max of 3 entries
 //heat.spiTempSensorCSPins = { }; //Max of 2 entries
 
 <%_ if (board.hasESP)  { -%>

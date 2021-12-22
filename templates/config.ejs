@@ -117,11 +117,11 @@ M208 X<%- template.geometry.maxes[0] %> Y<%- template.geometry.maxes[1] %> Z<%- 
 				let type = 'unknown', sParam = 0;
 				switch (drive.endstop_type) {
 					case 1:
-						type = 'active-high';
+						type = 'switch-type (e.g. microswitch)';
 						sParam = 1;
 						break;
 					case 2:
-						type = 'active-low';
+						type = 'unsupported switch-type';
 						sParam = 0;
 						break;
 					case 3:
@@ -243,17 +243,23 @@ M140 H-1 ; disable heated bed (overrides default heater mapping)
 			switch (heater.sensor_type) {
 				case 'thermistor':
 					extraArgs = ` T${heater.thermistor} B${heater.beta}`;
+                    if (template.firmware < 3) {
+                        extraArgs = ` R${heater.series}`;
+                    }
 					if (heater.c > 0) {
 						extraArgs += ` C${heater.c}`;
 					}
 					extraComment = `as thermistor on pin ${heater.sensor_pin}`;
 					break;
+                case 'rtd-max31865':
 				case 'pt100':
 					extraComment = `as PT100 on pin ${heater.sensor_pin}`;
 					break;
 				case 'pt1000':
-					extraArgs = ` R${heater.series}`;
 					extraComment = `as PT1000 on pin ${heater.sensor_pin}`;
+                    if (template.firmware < 3) {
+                        extraArgs = ` R${heater.series}`;
+                    }
 					break;
 				default:
 					extraComment = `as thermocouple via CS pin ${heater.sensor_pin}`;
@@ -378,7 +384,7 @@ M567 P<%- tool.number %> E<%- tool.mix_ratio.join(':') %> ; set mixing ratios fo
 M575 P1 S0 B57600 ; enable support for Flymaker 4.3/7" screen
 <%		}
 		if (template.tft) { -%>
-M575 P1 S1 B115200 ; enable support for tft
+M575 P1 S2 B57600 ; enable support for tft
 <%		}
 		if (template.panelDue) { -%>
 M575 P1 S1 B57600 ; enable support for PanelDue
