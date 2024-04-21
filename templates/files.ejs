@@ -1,5 +1,10 @@
 bed.g
+<% if (template.firmware == 3.5 && template.requiresBoardTxt) { -%>
 board.txt
+<%	} -%>
+<% if (template.firmware == 3) { -%>
+board.txt
+<%	} -%>
 config.g
 <%	if (template.firmware >= 3 && template.network.ssid.trim() !== '') { -%>
 runonce.g
